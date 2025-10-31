@@ -64,11 +64,10 @@ void* convolute_thread(void* tdata) {
     ThreadData* data = (ThreadData*)tdata;
     Image* srcImage = data->src;
     Image* destImage = data->dest;
-
-    // Use the algorithm directly from the struct
-    for (int row = data->start_row; row < data->end_row; row++) {
-        for (int pix = 0; pix < srcImage->width; pix++) {
-            for (int bit = 0; bit < srcImage->bpp; bit++) {
+    int row, pix, bit;
+    for (row = data->start_row; row < data->end_row; row++) {
+        for (pix = 0; pix < srcImage->width; pix++) {
+            for (bit = 0; bit < srcImage->bpp; bit++) {
                 destImage->data[Index(pix,row,srcImage->width,bit,srcImage->bpp)] =
                     getPixelValue(srcImage, pix, row, bit, data->algorithm);
             }
@@ -88,11 +87,11 @@ void convolute(Image* srcImage, Image* destImage, Matrix algorithm) {
     pthread_t threads[num_threads];
     ThreadData thread_data[num_threads];
     int rows_per_thread = srcImage->height / num_threads;
+    int i;
 
-    for (int i = 0; i < num_threads; i++) {
+    for (i = 0; i < num_threads; i++) {
         thread_data[i].src = srcImage;
         thread_data[i].dest = destImage;
-        // Copy the 3x3 matrix into thread_data
         memcpy(thread_data[i].algorithm, algorithm, sizeof(Matrix));
         thread_data[i].start_row = i * rows_per_thread;
         thread_data[i].end_row = (i == num_threads - 1)
@@ -101,7 +100,7 @@ void convolute(Image* srcImage, Image* destImage, Matrix algorithm) {
         pthread_create(&threads[i], NULL, convolute_thread, &thread_data[i]);
     }
 
-    for (int i = 0; i < num_threads; i++) {
+    for (i = 0; i < num_threads; i++) {
         pthread_join(threads[i], NULL);
     }
 }
