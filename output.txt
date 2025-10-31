@@ -1,0 +1,9 @@
+Script started on Fri Oct 31 19:13:15 2025
+]0;alexisv@r1n06.darwin:~/CISC372_picProject[?1034h[alexisv@r1n06 CISC372_picProject]$ exitsrun pthrimage edge[1@.[1@/pthrimage [1@ [1@p[1@i[1@c[1@1[1@.[1@j[1@p[1@g
+Took 7 seconds
+]0;alexisv@r1n06.darwin:~/CISC372_picProject[alexisv@r1n06 CISC372_picProject]$ srun ./pthrimage pic1.jpg edge[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@o[1@p[1@e[1@n[1@i[1@m[1@a[1@g[1@e
+Took 7 seconds
+]0;alexisv@r1n06.darwin:~/CISC372_picProject[alexisv@r1n06 CISC372_picProject]$ exit
+exit
+
+Script done on Fri Oct 31 19:13:58 2025
